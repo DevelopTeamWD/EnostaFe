@@ -26,7 +26,8 @@
 :root {
   --primary: #0f41ff;
   --primary-dark: #0a2eb3;
-  --bg: #0F41FF;
+  --bg: linear-gradient(-15deg, #1040FF 69.08%, #020403 132.65%);
+  --bg-gray: #f8f8f8;
   --bg-secondary: #f5f3ef;
   --fg: #fafafa;
   --fg-secondary: #1a1a1a;
@@ -72,7 +73,7 @@ header {
   right: 0;
   z-index: 100;
   border-bottom: 1px solid var(--border);
-  background:var(--bg);
+  background:var(--bg-gray);
   backdrop-filter: blur(12px);
   padding: 16px 0;
 }
@@ -97,12 +98,12 @@ nav {
 }
 nav a {
   font-family: var(--font-sans);
-  font-size: 13px;
-  color: var(--muted);
+  font-size: 14px;
+  color: var(--fg-secondary);
   transition: color 0.2s;
 }
 nav a:hover {
-  color: var(--fg);
+  color: var(--primary);
 }
 .btn {
   display: inline-flex;
@@ -123,10 +124,11 @@ nav a:hover {
 .btn_white {
   background: #fff;
   color: var(--primary);
+  border: 1px solid transparent;
 }
 .btn_white:hover {
-  background: rgba(250, 250, 250, 0.85);
-  color: var(--fg);
+   border: 1px solid var(--primary);
+   color: var(--primary);
 }
 .btn_primary:hover {
   background: rgba(250, 250, 250, 0.85);
@@ -198,7 +200,7 @@ section {
 .services-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 0;
+  gap: 8px;
 }
 .service-card {
   padding: 40px;
@@ -232,7 +234,7 @@ section {
   margin-top: 12px;
 }
 .approach {
-  background: var(--bg);
+  background: var(--bg)
 }
 .approach .section-title {
   color: var(--fg);
@@ -250,7 +252,7 @@ section {
   flex-direction: column;
   padding: 20px 40px 40px;
   border: 2px solid var(--border);
-  background: var(--bg);
+  background: var(--primary);
   position: sticky;
   top: 80px;
   margin-bottom: 24px;
@@ -582,8 +584,8 @@ h2 span.dark {
   background: var(--primary-dark);
 }
 footer {
-  background: var(--bg);
-  color: var(--muted);
+  background: var(--bg-gray);
+  color: var(--muted-secondary);
   padding: 64px 0 32px;
   border-top: 1px solid var(--border);
 }
@@ -606,7 +608,7 @@ footer {
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: var(--muted);
+  color: var(--muted-secondary);
   margin-bottom: 16px;
 }
 .footer-col a {
@@ -616,7 +618,7 @@ footer {
   transition: color 0.2s;
 }
 .footer-col a:hover {
-  color: var(--fg);
+  color: var(--fg-secondary);
 }
 .footer-bottom {
   border-top: 1px solid var(--border);
@@ -656,7 +658,15 @@ footer {
     gap: 48px;
   }
 }
+@media (min-width: 768px) {
+  .toggle-nav{
+    display: none;
+  }
+  .toggle-nav { display: none; }
+  .sidebar-nav { display: none; }
+}
 @media (max-width: 768px) {
+  .desktop-nav { display: none; }
   body {
     font-size: 16px;
   }
@@ -705,6 +715,62 @@ footer {
     padding: 40px 24px;
   }
   nav {
-    display: none;
+    display: inline;
+    background: #f5f5f5;
+    width: 100%;
+    padding: 0;
   }
+  nav a {
+      font-size: 16px;
+      width: 100%;
+      display: block;
+      margin-bottom: 8px;
+      padding: 8px 16px;
+  }
+  .menu-item.btn_white{
+    width: auto;
+    margin-left: 24px;
+    
+  }
+  
+}
+/* Sidebar style */
+.sidebar-nav {
+  position: fixed;
+  top: 0;
+  left: -100%; /* Ẩn hoàn toàn sang trái */
+  width: 280px;
+  height: 100vh;
+  background-color: #fff;
+  z-index: 9999;
+  transition: 0.4s ease; /* Tạo hiệu ứng trượt */
+  padding: 20px;
+  box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+}
+
+.sidebar-nav.active {
+  left: 0; /* Trượt vào màn hình */
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+}
+.top-nav-mobile{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 16px;
+}  
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  z-index: 9998;
 }

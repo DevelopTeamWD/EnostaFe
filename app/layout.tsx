@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Header } from '@/components/header';
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { fetchGraphQL, dataGlobal, getImageUrl } from "@/lib/api";
@@ -7,6 +8,7 @@ const inter = Inter({
   subsets: ["latin"],
 });
 export const dynamic = 'force-dynamic';
+
 export async function generateMetadata() {
   try {
     const data = await fetchGraphQL(dataGlobal);
@@ -21,7 +23,7 @@ export async function generateMetadata() {
         url: '/',
         images: [
           {
-            url: `${siteUrl}/Enosta_logo.svg`,
+            url: `${siteUrl}/favicon.svg`,
             width: 1200,
             height: 630,
           },
@@ -62,20 +64,11 @@ export default async function RootLayout({
 
     >
       <body className="min-h-full flex flex-col font-sans">
-        <header>
-          <div className="container">
-            <a href={logoLink} className="logo">
-              <img src={logoUrl} alt="Logo" style={{ objectFit: 'contain' }} />
-            </a>
-            <nav>
-              {header?.menus?.map((item: any, index: number) => (
-                <a href={item.link || ' '} className={`menu-item ${item?.style ? `btn ${item.style}` : ''}`} key={`menu-${index}`}>
-                  {item.name}
-                </a>
-              ))}
-            </nav>
-          </div>
-        </header>
+        <Header
+          header={header}
+          logoLink={logoLink}
+          logoUrl={logoUrl}
+        />
 
         <div className="site">
           {children}
