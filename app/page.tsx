@@ -3,6 +3,7 @@ import { fetchGraphQL, getImageUrl, dataHome } from '../lib/api';
 import "./globals.css";
 import { RenderBlocks } from '@/components/RichText';
 import parse from 'html-react-parser';
+export const dynamic = 'force-dynamic';
 export default async function Home() {
 
   let data = null;
@@ -81,7 +82,9 @@ function BlockRenderer({ block }: { block: any }) {
                     <div className="step-body">
                       <div className={`visual-${index + 1} step-visual`}>
                         {item.content.image?.url && (
-                          <img src={getImageUrl(item.content.image.url)} alt={item.content.image.caption || "Image"}
+                          <img
+                            src={getImageUrl(item.content.image.url)}
+                            alt={String(item.content.image.caption || "Image")}
                           />
                         )}
                       </div>
@@ -121,7 +124,7 @@ function BlockRenderer({ block }: { block: any }) {
                 </div>
               </div>
               <div className="advisory-grid">
-                {block.lists?.map((itemstra, idx) => (
+                {block.lists?.map((itemstra: any, idx: number) => (
                   <div key={idx} className={`advisory-card fade-up fade-up-delay-${idx}`}>
                     <div className="advisory-label">{itemstra?.subtitle}</div>
                     <h3>{itemstra?.title}</h3>
@@ -142,7 +145,7 @@ function BlockRenderer({ block }: { block: any }) {
               <p className="section-subtitle">{block.heading?.text}</p>
             </div>
             <div className="audience-grid">
-              {block.lists?.map((item, idx) => (
+              {block.lists?.map((item: any, idx: number) => (
                 <div key={idx} className="audience-item">{item?.title}</div>
               ))}
             </div>

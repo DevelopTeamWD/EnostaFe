@@ -1,34 +1,33 @@
+// const apiUrl = process.env.NEXT_PUBLIC_STRAPI_API_URL || 'http://localhost:1337';
 const apiUrl = 'http://localhost:1337';
 const API_URL = `${apiUrl}/graphql`;
 export async function fetchGraphQL(query: string, variables = {}) {
-    const res = await fetch(API_URL, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ query, variables }),
-        cache: 'no-store',
-    });
+  const res = await fetch(API_URL, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ query, variables }),
+    cache: 'no-store',
+  });
 
-    // Check if the response is okay BEFORE parsing JSON
-    if (!res.ok) {
-        const text = await res.text(); // Get raw text
-        console.error("API Error Status:", res.status, res.statusText);
-        console.error("API Response Body:", text);
-        throw new Error(`Failed to fetch GraphQL: ${res.status} ${res.statusText}`);
-    }
+  // Check if the response is okay BEFORE parsing JSON
+  if (!res.ok) {
+    const text = await res.text(); // Get raw text
+    throw new Error(`Failed to fetch GraphQL: ${res.status} ${res.statusText}`);
+  }
 
-    const result = await res.json();
+  const result = await res.json();
 
-    if (result.errors) {
-        throw new Error(`GraphQL Errors: ${JSON.stringify(result.errors)}`);
-    }
+  if (result.errors) {
+    throw new Error(`GraphQL Errors: ${JSON.stringify(result.errors)}`);
+  }
 
-    return result.data;
+  return result.data;
 }
-export const getImageUrl = (url: string) => {
-    if (!url) return null;
-    return url.startsWith("http") ? url : `${apiUrl}${url}`;
+export const getImageUrl = (url: string | null | undefined): string => {
+  if (!url) return "";
+  return url.startsWith("http") ? url : `${apiUrl}${url}`;
 };
 
 export const dataGlobal = `query getGlobal{

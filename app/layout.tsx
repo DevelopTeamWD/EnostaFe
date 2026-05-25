@@ -6,7 +6,7 @@ const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
 });
-
+export const dynamic = 'force-dynamic';
 export async function generateMetadata() {
   try {
     const data = await fetchGraphQL(dataGlobal);
@@ -46,12 +46,15 @@ export default async function RootLayout({
 
   try {
     getGlobal = await fetchGraphQL(dataGlobal);
-    // console.log('getGlobal:', getGlobal);
   } catch (error) {
     console.log("error detail:", error);
   }
-  const header = getGlobal?.global?.header;
-  const footer = getGlobal?.global?.footer;
+  const header = getGlobal?.global?.header || {};
+  const footer = getGlobal?.global?.footer || {};
+
+  const logoLink = header?.logo?.link || "/";
+  const logoUrl = header?.logo?.image?.url ? getImageUrl(header.logo.image.url) : "/Enosta_logo.svg";
+
   return (
     <html
       lang="en"
@@ -61,12 +64,12 @@ export default async function RootLayout({
       <body className="min-h-full flex flex-col font-sans">
         <header>
           <div className="container">
-            <a href={header.logo.link} className="logo">
-              <img src={getImageUrl(header.logo.image.url)!} alt="Logo" style={{ objectFit: 'contain' }} />
+            <a href={logoLink} className="logo">
+              <img src={logoUrl} alt="Logo" style={{ objectFit: 'contain' }} />
             </a>
             <nav>
-              {header.menus.map((item: any, index: number) => (
-                <a href={item.link} className={`menu-item ${item?.style ? `btn ${item.style}` : ''}`} key={`menu-${index}`}>
+              {header?.menus?.map((item: any, index: number) => (
+                <a href={item.link || ' '} className={`menu-item ${item?.style ? `btn ${item.style}` : ''}`} key={`menu-${index}`}>
                   {item.name}
                 </a>
               ))}
@@ -83,16 +86,16 @@ export default async function RootLayout({
             <div className="footer-grid">
               <div className="footer-brand">
                 <div className="logo">
-                  <a href={footer.logo.link}>
-                    <img src={getImageUrl(footer.logo.image.url)!} alt="Logo" style={{ objectFit: 'contain' }} />
+                  <a href={footer?.logo?.link || "/"}>
+                    <img src={getImageUrl(footer?.logo?.image?.url)!} alt="Logo" style={{ objectFit: 'contain' }} />
                   </a>
                 </div>
-                <p>{footer.description}</p>
+                <p>{footer?.description}</p>
               </div>
-              {footer.menufooter.map((menu: any, index: number) => (
+              {footer?.menufooter?.map((menu: any, index: number) => (
                 <div className="footer-col" key={`footer-menu-${index}`}>
                   <h4>{menu.title}</h4>
-                  {menu.text.map((item: any, idx: number) => {
+                  {menu?.text?.map((item: any, idx: number) => {
                     if (item.link) {
                       return (
                         <a href={item.link} key={`footer-menu-${index}-${idx}`}>

@@ -39,7 +39,7 @@ export const RenderBlocks = ({ content }: { content: any[] }) => {
             );
 
           case 'heading':
-            const HeadingTag = `h${node.level}` as keyof JSX.IntrinsicElements;
+            const HeadingTag = `h${node.level}` as React.ElementType;
             return (
               <HeadingTag key={index} className="font-bold text-xl mb-2">
                 {node.children.map((child: any, i: number) => renderText(child, i))}
