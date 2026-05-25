@@ -1,5 +1,4 @@
-// const apiUrl = process.env.NEXT_PUBLIC_STRAPI_API_URL || 'http://localhost:1337';
-const apiUrl = 'http://localhost:1337';
+const apiUrl = process.env.NEXT_PUBLIC_STRAPI_API_URL || 'http://localhost:1337';
 const API_URL = `${apiUrl}/graphql`;
 export async function fetchGraphQL(query: string, variables = {}) {
   const res = await fetch(API_URL, {
