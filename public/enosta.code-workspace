@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "../../enosta"
+		},
+		{
+			"path": ".."
+		},
+		{
+			"path": "../../langdingstrapi/nextjs"
+		}
+	],
+	"settings": {}
+}

@@ -179,6 +179,17 @@ export const dataHome = `query getHome {
           text
         }
       }
+      ... on ComponentBlocksMap {
+        id
+        heading {
+          text
+          title
+        }
+        map {
+          url
+          caption
+        }
+      }
     }
   }
 }`;

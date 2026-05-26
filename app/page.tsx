@@ -182,10 +182,24 @@ function BlockRenderer({ block }: { block: any }) {
                 </div>
               </div>
               <div className="stats-numbers">
-                {block.lists?.map((item: any, idx: number) => (
-                  <div key={idx} className="stat-item"><div className="number">{item?.title}</div><div className="label">{item?.text}</div></div>
+                {(block.lists || [])
+                  .reduce((acc: any[], item: any, index: number, array: any[]) => {
+                    if (index % 2 === 0) {
+                      acc.push(array.slice(index, index + 2));
+                    }
 
-                ))}
+                    return acc;
+                  }, [])
+                  .map((group: any[], index: number) => (
+                    <div key={index} className="stat-col">
+                      {group.map((item: any, idx: number) => (
+                        <div key={idx} className="stat-item">
+                          <div className="number">{item?.title}</div>
+                          <div className="label">{item?.text}</div>
+                        </div>
+                      ))}
+                    </div>
+                  ))}
 
               </div>
             </div>
@@ -199,6 +213,27 @@ function BlockRenderer({ block }: { block: any }) {
             <h2>{block.heading?.title}</h2>
             <p>{block.heading?.text}</p>
             <a href={block.button?.link} className={`btn ${block.button?.style ? block.button.style : ''}`}>{block.button?.name}</a>
+          </div>
+        </section>
+      );
+    case 'ComponentBlocksMap':
+      return (
+        <section className="map" id="map">
+          <div className="bg-overlay"></div>
+          <div className="container">
+            <div className='map-heading'>
+              <h2 className="section-title">{block.heading?.title}</h2>
+              <p>{block.heading?.text}</p>
+            </div>
+            <div className="thumb-map">
+              {block?.map?.url && (
+                <img
+                  src={getImageUrl(block?.map?.url)}
+                  alt={String(block?.map?.caption || "Image")}
+                />
+              )}
+            </div>
+
           </div>
         </section>
       );

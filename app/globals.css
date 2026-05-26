@@ -66,6 +66,22 @@ img {
   margin: 0 auto;
   padding: 0 24px;
 }
+.map {
+  position: relative;
+    background: #020403;
+}
+.map-heading{
+  color: var(--fg); 
+ 
+  text-align: center;
+}
+.map-heading p{ 
+  max-width: 558px;
+   margin: auto;
+}
+.thumb-map {
+    padding-top: 80px;
+}
 header {
   position: fixed;
   top: 0;
@@ -150,7 +166,7 @@ nav a:hover {
 .hero > .container > p {
   font-size: 18px;
   line-height: 1.7;
-  max-width: 640px;
+  max-width: 695px;
   color: var(--muted);
   margin-bottom: 24px;
 }
@@ -169,7 +185,7 @@ section {
   padding: 120px 0;
 }
 .section-title {
-  font-size: clamp(2.5rem, 2rem + 1.5vw, 3.5rem);
+  font-size: 52px;
   font-weight: 500;
   line-height: 1.1;
   margin-bottom: 16px;
@@ -252,7 +268,7 @@ section {
   flex-direction: column;
   padding: 20px 40px 40px;
   border: 2px solid var(--border);
-  background: var(--primary);
+  background: var(--bg-secondary);
   position: sticky;
   top: 80px;
   margin-bottom: 24px;
@@ -288,8 +304,15 @@ section {
   min-height: 36px;
   margin-bottom: 24px;
   padding-bottom: 16px;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid #fff;
   flex-wrap: nowrap;
+}
+.stat-col:first-child{
+  margin-top: 24px;
+
+}
+.stat-item:first-child{
+  margin-bottom: 24px;
 }
 .step-body {
   display: grid;
@@ -311,7 +334,6 @@ section {
 .step-number {
   font-size: 12px;
   font-weight: 500;
-  color: var(--muted);
   text-transform: uppercase;
   letter-spacing: 0.05em;
   flex-shrink: 0;
@@ -320,6 +342,7 @@ section {
   font-size: 22px;
   margin: 0;
   white-space: nowrap;
+  color: var(--fg-secondary);
 }
 .step-content h3 {
   display: none;
@@ -327,7 +350,7 @@ section {
 .step-content p {
   font-size: 14px;
   line-height: 1.7;
-  color: var(--muted);
+
 }
 .step-content ul {
   display: flex;
@@ -336,14 +359,12 @@ section {
   margin-top: 20px;
 }
 .step-content {
-  font-family: var(--font-sans);
   font-size: 11px;
-  color: var(--muted);
+  color: var(--fg-secondary);
 }
 .step-content ul li {
   padding: 4px 10px;
-  border: 1px solid var(--border);
-
+  border: 1px solid var(--primary);
   list-style-type: none;
 }
 
@@ -374,7 +395,7 @@ section {
 .advisory-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 0;
+  gap: 8px;
 }
 .advisory-card {
   background: var(--bg-secondary);
@@ -385,10 +406,9 @@ section {
   flex-direction: column;
 }
 .advisory-card:hover {
-  border-color: var(--fg-secondary);
+  border-color: var(--primary);
 }
 .advisory-label {
-  font-family: "JetBrains Mono", monospace;
   font-size: 10px;
   font-weight: 500;
   letter-spacing: 0.1em;
@@ -419,11 +439,10 @@ section {
 .audience-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 0;
-  max-width: 900px;
+  gap: 8px;
 }
 .audience-item {
-  padding: 20px 24px;
+  padding: 32px 24px;
   border: 2px solid var(--border);
   font-size: 15px;
   font-weight: 500;
@@ -534,7 +553,7 @@ h2 span.dark {
 .stats-numbers {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 0;
+  gap: 24px;
 }
 .stat-item {
   padding: 32px;
@@ -567,6 +586,16 @@ h2 span.dark {
   font-weight: 500;
   color: var(--fg-secondary);
   margin-bottom: 16px;
+}
+.bg-overlay{
+    inset: 0;
+    position: absolute;
+    background-image: url( '/Ellipse.svg');
+    background-position: center left;
+    background-repeat: no-repeat;
+    opacity: 1;
+    transition: background 0.3s, border-radius 0.3s, opacity 0.3s;
+    left: 0;
 }
 .cta p {
   font-size: 17px;
@@ -666,17 +695,55 @@ footer {
   .sidebar-nav { display: none; }
 }
 @media (max-width: 768px) {
+  .bg-overlay {
+    display: none;
+  }
+  .stat-item .number{
+    font-size: 42px;
+  }
+  .stat-item {
+    padding: 24px;
+  }
+  .stat-item .label {
+    font-size: 12px;
+  }
+  .audience-item{
+    padding: 24px;
+  }
+  .stats {
+      padding: 80px 0;
+  }
+  .cta {
+    padding: 80px 24px;
+  }
+ .section-header {
+    margin-bottom: 40px;
+  }
+  .hero .container{
+    padding-left: 0;
+    padding-right: 0;
+  }
   .desktop-nav { display: none; }
   body {
     font-size: 16px;
   }
   .hero h1,  h1{
     font-size: 36px;
+    line-height: 1.2;
   }
   .section-title, h2{
     font-size: 32px;
   }
-  
+  .footer-brand .logo {
+    margin-bottom: 24px;
+  }
+  .stat-item:first-child {
+      margin-bottom: 16px;
+  }
+
+  .stats-numbers {
+    gap: 16px;
+  }
   section {
     padding: 80px 0;
   }
@@ -690,6 +757,8 @@ footer {
   .step {
     position: relative;
     top: auto !important;
+    padding: 32px 24px;
+ 
   }
   .step-body {
     grid-template-columns: 1fr;
@@ -773,4 +842,9 @@ footer {
   height: 100%;
   background: rgba(0,0,0,0.5);
   z-index: 9998;
+}
+@media (max-width: 379px) {
+  .step-header h3 {
+      font-size: 18px;
+  }
 }
